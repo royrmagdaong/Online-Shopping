@@ -1,0 +1,58 @@
+<template>
+    <v-container class="grey lighten-5" fluid>
+
+    <v-sheet
+        class="mx-auto"
+    >
+    <h3 class="grey--text lighten-3 pl-4 pt-4">TOP PRODUCTS</h3>
+        <v-slide-group
+        v-model="model"
+        class="pa-4"
+        active-class="success"
+        show-arrows
+        >
+        
+        <v-slide-item
+            v-for="image in images"
+            :key="image"
+        >
+            <v-card
+            class="ma-4"
+            width="200"
+            height="200"    
+            >
+            <v-img
+                :src="image"
+                max-width=""
+                max-height=""
+                aspect-ratio="1"
+            ></v-img>
+                
+            </v-card>
+        </v-slide-item>
+        </v-slide-group>
+    </v-sheet>
+  </v-container>
+</template>
+
+<script>
+
+export default {
+  data(){
+      return{
+        model: null,
+        images:[require('../assets/manga_zambales_2.jpg'),require('../assets/alaminos_longganisa.jpg'),require('../assets/bagnet.jpg'),
+            require('../assets/isabela_binalay.jpg'),require('../assets/pastillas_bulacan.jpeg'),require('../assets/pastillas_bulacan.jpeg')
+            ,require('../assets/pastillas_bulacan.jpeg'),require('../assets/pastillas_bulacan.jpeg'),require('../assets/pastillas_bulacan.jpeg')
+            ,require('../assets/pastillas_bulacan.jpeg'),require('../assets/pastillas_bulacan.jpeg'),require('../assets/pastillas_bulacan.jpeg')],
+      }
+  },
+  methods:{
+      
+  }
+}
+</script>
+
+<style scoped>
+
+</style>
