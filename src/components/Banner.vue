@@ -1,3 +1,5 @@
+<!-- BANNER FROM GITHUB -->
+
 <template>
 <v-carousel
     cycle
