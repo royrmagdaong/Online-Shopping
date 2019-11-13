@@ -16,19 +16,23 @@
             v-for="image in images"
             :key="image"
         >
-            <v-card
-            class="ma-4"
-            width="200"
-            height="200"    
-            >
-            <v-img
-                :src="image"
-                max-width=""
-                max-height=""
-                aspect-ratio="1"
-            ></v-img>
+            <v-hover v-slot:default="{ hover }">
+                <v-card
+                class="ma-4"
+                width="200"
+                height="200"    
+                :elevation="hover ? 8 : 1"
                 
-            </v-card>
+                >
+                <v-img
+                    :src="image"
+                    max-width=""
+                    max-height=""
+                    aspect-ratio="1"
+                ></v-img>
+                    
+                </v-card>
+            </v-hover>
         </v-slide-item>
         </v-slide-group>
     </v-sheet>
@@ -42,9 +46,7 @@ export default {
       return{
         model: null,
         images:[require('../assets/manga_zambales_2.jpg'),require('../assets/alaminos_longganisa.jpg'),require('../assets/bagnet.jpg'),
-            require('../assets/isabela_binalay.jpg'),require('../assets/pastillas_bulacan.jpeg'),require('../assets/pastillas_bulacan.jpeg')
-            ,require('../assets/pastillas_bulacan.jpeg'),require('../assets/pastillas_bulacan.jpeg'),require('../assets/pastillas_bulacan.jpeg')
-            ,require('../assets/pastillas_bulacan.jpeg'),require('../assets/pastillas_bulacan.jpeg'),require('../assets/pastillas_bulacan.jpeg')],
+            require('../assets/isabela_binalay.jpg'),require('../assets/pastillas_bulacan.jpeg')],
       }
   },
   methods:{
