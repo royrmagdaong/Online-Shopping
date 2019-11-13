@@ -20,7 +20,7 @@
           align="center"
           justify="center"
         >
-          <div class="display-3">{{ slide }} PROMOS</div>
+          <div class="display-3">{{ slide }} PROMOS of November</div>
         </v-row>
       </v-sheet>
     </v-carousel-item>
