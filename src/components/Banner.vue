@@ -1,30 +1,93 @@
 <!-- BANNER FROM GITHUB -->
 
 <template>
-<v-carousel
-    cycle
-    height="400"
-    hide-delimiter-background
-    show-arrows-on-hover
-  >
-    <v-carousel-item
-      v-for="(slide, i) in slides"
-      :key="i"
-    >
-      <v-sheet
-        :color="colors[i]"
-        height="100%"
+  <div>
+    <!-- Large and Up -->
+    <v-carousel
+        v-if="$vuetify.breakpoint.lgAndUp"
+        cycle
+        height="350"
+        hide-delimiter-background
+        show-arrows-on-hover
       >
-        <v-row
-          class="fill-height"
-          align="center"
-          justify="center"
+        <v-carousel-item
+          v-for="(slide, i) in slides"
+          :key="i"
         >
-          <div class="display-3">{{ slide }} PROMOS</div>
-        </v-row>
-      </v-sheet>
-    </v-carousel-item>
-  </v-carousel>
+          <v-sheet
+            :color="colors[i]"
+            height="100%"
+          >
+            <v-row
+              class="fill-height"
+              align="center"
+              justify="center"
+            >
+              <div class="display-3">{{ slide }} PROaaaMOS</div>
+            </v-row>
+          </v-sheet>
+        </v-carousel-item>
+      </v-carousel>
+
+      <!-- Small and Medium -->
+
+      <v-carousel
+        v-if="$vuetify.breakpoint.mdOnly || $vuetify.breakpoint.smOnly"
+        cycle
+        height="300"
+        hide-delimiter-background
+        show-arrows-on-hover
+      >
+        <v-carousel-item
+          v-for="(slide, i) in slides"
+          :key="i"
+        >
+          <v-sheet
+            :color="colors[i]"
+            height="100%"
+          >
+            <v-row
+              class="fill-height"
+              align="center"
+              justify="center"
+            >
+              <div class="display-1">{{ slide }} PROMOS</div>
+            </v-row>
+          </v-sheet>
+        </v-carousel-item>
+      </v-carousel>
+
+
+
+      <!-- Extra small Only -->
+
+      <v-carousel
+        v-if="$vuetify.breakpoint.xsOnly"
+        cycle
+        height="180"
+        hide-delimiter-background
+        hide-delimiters
+        show-arrows-on-hover
+      >
+        <v-carousel-item
+          v-for="(slide, i) in slides"
+          :key="i"
+        >
+          <v-sheet
+            :color="colors[i]"
+            height="100%"
+          >
+            <v-row
+              class="fill-height"
+              align="center"
+              justify="center"
+            >
+              <div class="display-1">{{ slide }} PROMOS</div>
+            </v-row>
+          </v-sheet>
+        </v-carousel-item>
+      </v-carousel>
+  </div>
 </template>
 
 <script>
@@ -50,7 +113,8 @@ export default {
   },
   methods:{
       
-  }
+  },
+  
 }
 </script>
 
