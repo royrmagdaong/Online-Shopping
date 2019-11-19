@@ -2,12 +2,14 @@
 
 <template>
   <div>
-    <!-- Large and Up -->
-    <v-carousel
-        v-if="$vuetify.breakpoint.lgAndUp"
+    <!-- Extra small Only -->
+
+      <v-carousel
+        v-if="$vuetify.breakpoint.xsOnly"
         cycle
-        height="350"
+        height="180"
         hide-delimiter-background
+        hide-delimiters
         show-arrows-on-hover
       >
         <v-carousel-item
@@ -23,11 +25,14 @@
               align="center"
               justify="center"
             >
-              <div class="display-3">{{ slide }} PROaaaMOS</div>
+              <div class="display-1">{{ slide }} PROMOS</div>
             </v-row>
           </v-sheet>
         </v-carousel-item>
       </v-carousel>
+
+
+    
 
       <!-- Small and Medium -->
 
@@ -57,16 +62,12 @@
         </v-carousel-item>
       </v-carousel>
 
-
-
-      <!-- Extra small Only -->
-
-      <v-carousel
-        v-if="$vuetify.breakpoint.xsOnly"
+<!-- Large and Up -->
+    <v-carousel
+        v-if="$vuetify.breakpoint.lgAndUp"
         cycle
-        height="180"
+        height="350"
         hide-delimiter-background
-        hide-delimiters
         show-arrows-on-hover
       >
         <v-carousel-item
@@ -82,11 +83,13 @@
               align="center"
               justify="center"
             >
-              <div class="display-1">{{ slide }} PROMOS</div>
+              <div class="display-3">{{ slide }} PROaaaMOS</div>
             </v-row>
           </v-sheet>
         </v-carousel-item>
       </v-carousel>
+
+      
   </div>
 </template>
 

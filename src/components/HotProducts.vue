@@ -1,8 +1,8 @@
 <template>
 <div>
 
-    <!-- Large and Up screen -->
-    <v-container class="grey lighten-5" fluid v-if="$vuetify.breakpoint.lgAndUp">
+    <!-- for extra small screen only -->
+  <v-container class="grey lighten-5" fluid v-if="$vuetify.breakpoint.xsOnly">
 
     <v-sheet
         class="mx-auto"
@@ -20,9 +20,9 @@
         >
             <v-hover v-slot:default="{ hover }">
                 <v-card
-                class="ma-3"
-                width="200"
-                height="200"    
+                class="ma-2"
+                width="120"
+                height="120"    
                 :elevation="hover ? 8 : 1"
                 
                 >
@@ -37,9 +37,6 @@
         </v-slide-group>
     </v-sheet>
   </v-container>
-
-
-
 
   <!-- for medium and small screen only -->
   <v-container class="grey lighten-5" fluid v-if="$vuetify.breakpoint.mdOnly||$vuetify.breakpoint.smOnly">
@@ -79,8 +76,8 @@
     </v-sheet>
   </v-container>
 
-  <!-- for extra small screen only -->
-  <v-container class="grey lighten-5" fluid v-if="$vuetify.breakpoint.xsOnly">
+    <!-- Large and Up screen -->
+    <v-container class="grey lighten-5" fluid v-if="$vuetify.breakpoint.lgAndUp">
 
     <v-sheet
         class="mx-auto"
@@ -98,9 +95,9 @@
         >
             <v-hover v-slot:default="{ hover }">
                 <v-card
-                class="ma-2"
-                width="120"
-                height="120"    
+                class="ma-3"
+                width="200"
+                height="200"    
                 :elevation="hover ? 8 : 1"
                 
                 >
@@ -115,6 +112,9 @@
         </v-slide-group>
     </v-sheet>
   </v-container>
+
+
+  
 </div>
     
 </template>
