@@ -120,19 +120,27 @@
 </template>
 
 <script>
-
+import {dbStorage} from '../firebasedb'
 export default {
   data(){
       return{
         model: null,
-        images:[require('../assets/manga_zambales_2.jpg'),require('../assets/alaminos_longganisa.jpg'),require('../assets/bagnet.jpg'),
-            require('../assets/isabela_binalay.jpg'),require('../assets/pastillas_bulacan.jpeg'),require('../assets/bagnet.jpg'),
-            require('../assets/isabela_binalay.jpg'),require('../assets/pastillas_bulacan.jpeg'),require('../assets/bagnet.jpg'),
-            require('../assets/isabela_binalay.jpg'),require('../assets/pastillas_bulacan.jpeg')],
+        imagesUrl:['abel_weaving_sm.jpg','alaminos_longganisa_sm.jpg','bagnet_sm.jpg','biko_bulacan_sm.jpg','cashey_nuts_bataan_sm.png'
+            ,'hopya_ibanag_sm.jpg','ilocos_bagoong_sm.jpg'],
+        images:[],
       }
   },
   methods:{
       
+  },
+  mounted(){
+      this.imagesUrl.forEach(elmnt => {
+        dbStorage.ref('images/'+elmnt).getDownloadURL().then((url)=>{
+            this.images.push(url)
+        }).catch((error) => {
+            window.console.log(error.message)
+        })
+      });
   }
 }
 </script>

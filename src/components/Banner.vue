@@ -84,7 +84,7 @@
               align="center"
               justify="center"
             >
-              <div class="display-3">{{ slide }} PROaaaMOS</div>
+              <div class="display-3">{{ slide }} PROMOS</div>
             </v-row>
           </v-sheet>
         </v-carousel-item>

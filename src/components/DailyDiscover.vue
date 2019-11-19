@@ -11,8 +11,8 @@
                     <h3 class="grey--text lighten-2">DAILY DISCOVER </h3>
                     <v-row class="pa-0">
                         <v-col
-                            v-for="n in 24"
-                            :key="n"
+                            v-for="image in images"
+                            :key="image"
                             class="d-flex child-flex"
                             cols="6"
                         
@@ -22,8 +22,8 @@
                                 <v-card flat tile class="d-flex"
                                 >
                                     <v-img
-                                        :src="`https://picsum.photos/500/300?image=${n * 5 + 10}`"
-                                        :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`"
+                                        :src="image"
+                                        :lazy-src="image"
                                         aspect-ratio="1"
                                         class="grey lighten-2"
                                         >
@@ -68,8 +68,8 @@
                     <h3 class="grey--text lighten-2">DAILY DISCOVER </h3>
                     <v-row class="pa-4">
                         <v-col
-                            v-for="n in 24"
-                            :key="n"
+                            v-for="image in images"
+                            :key="image"
                             class="d-flex child-flex"
                             cols="4"
                         
@@ -79,8 +79,8 @@
                                 <v-card flat tile class="d-flex"
                                 >
                                     <v-img
-                                        :src="`https://picsum.photos/500/300?image=${n * 5 + 10}`"
-                                        :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`"
+                                        :src="image"
+                                        :lazy-src="image"
                                         aspect-ratio="1"
                                         class="grey lighten-2"
                                         >
@@ -126,8 +126,8 @@
                     <h3 class="grey--text lighten-2">DAILY DISCOVER </h3>
                     <v-row class="pa-4">
                         <v-col
-                            v-for="n in 24"
-                            :key="n"
+                            v-for="image in images"
+                            :key="image"
                             class="d-flex child-flex"
                             cols="3"
                         
@@ -137,8 +137,8 @@
                                 <v-card flat tile class="d-flex"
                                 >
                                     <v-img
-                                        :src="`https://picsum.photos/500/300?image=${n * 5 + 10}`"
-                                        :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`"
+                                        :src="image"
+                                        :lazy-src="image"
                                         aspect-ratio="1"
                                         class="grey lighten-2"
                                         >
@@ -186,8 +186,8 @@
                     <h3 class="grey--text lighten-2">DAILY DISCOVER </h3>
                     <v-row class="pa-4">
                         <v-col
-                            v-for="n in 24"
-                            :key="n"
+                            v-for="image in images"
+                            :key="image"
                             class="d-flex child-flex"
                             cols="2"
                         
@@ -197,8 +197,8 @@
                                 <v-card flat tile class="d-flex"
                                 >
                                     <v-img
-                                        :src="`https://picsum.photos/500/300?image=${n * 5 + 10}`"
-                                        :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`"
+                                        :src="image"
+                                        :lazy-src="image"
                                         aspect-ratio="1"
                                         class="grey lighten-2"
                                         >
@@ -244,17 +244,34 @@
 </template>
 
 <script>
-
+import {dbStorage} from '../firebasedb'
 export default {
   data(){
       return{
+        model: null,
+        imagesUrl:['abel_weaving_sm.jpg','alaminos_longganisa_sm.jpg','bagnet_sm.jpg','biko_bulacan_sm.jpg','cashey_nuts_bataan_sm.png'
+            ,'hopya_ibanag_sm.jpg','ilocos_bagoong_sm.jpg','inatata_isabela_sm.jpg','isabela_binalay_sm.jpg','manga_zambales_2_sm.jpg',
+                'manga_zambales_sm.jpg','moriecos_isabela_sm.jpg'],
+        images:[],
       }
   },
   methods:{
       
   },
+  created(){
+      window.console.log("moounted!")
+
+      this.imagesUrl.forEach(elmnt => {
+        dbStorage.ref('images/'+elmnt).getDownloadURL().then((url)=>{
+            this.images.push(url)
+        }).catch((error) => {
+            window.console.log(error.message)
+        })
+      });
+  }
 }
 </script>
+
 
 <style scoped>
 

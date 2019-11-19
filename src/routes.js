@@ -7,6 +7,10 @@ export default[
         component: Home
     },
     {
+        path:'/home',
+        component: Home
+    },
+    {
         path:'/about',
         component: About
     }

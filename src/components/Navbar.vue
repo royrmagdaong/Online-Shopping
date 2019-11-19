@@ -17,17 +17,30 @@
       ></v-img>
 
       <v-spacer></v-spacer>
+      <v-btn text router-link to="/" class="hidden-sm-and-down">Menu</v-btn>
+      <v-btn text router-link to="/about" class="hidden-sm-and-down">About</v-btn>
+      <v-btn text @click.stop="logout()" v-show="currentUser!=null" class="hidden-sm-and-down" router-link to="/home">Logout</v-btn>
+      <login-form title="Login" v-show="currentUser==null" class="hidden-sm-and-down"></login-form>
+      <login-form title="Sign Up" v-show="currentUser==null" class="hidden-sm-and-down"></login-form>
+      <v-avatar color="grey" size="36" v-show="currentUser!=null" class="hidden-sm-and-down ml-1">
+        <img
+          class="grey"
+        >
+      </v-avatar>
 
-      <v-toolbar-item class="hidden-sm-and-down">
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="hidden-md-and-up"></v-app-bar-nav-icon>
+
+      <!-- <v-toolbar-item class="hidden-sm-and-down">
           <v-btn text router-link to="/">Home</v-btn>
           <v-btn text router-link to="/about">About</v-btn>
-          <!-- <v-btn text >Login</v-btn> -->
-          <v-btn text class="ma-0 pa-0"><login-form title="Login"></login-form></v-btn>
-          <v-btn text class="ma-0 pa-0"><login-form title="Sign Up"></login-form></v-btn>
+          <v-btn text >Login</v-btn>
+          <v-btn text class="ma-0 pa-0"><login-form title="Login"></login-form></v-btn> -->
+          <!-- <v-btn text class="ma-0 pa-0"><login-form title="Sign Up"></login-form></v-btn>
       </v-toolbar-item>
       <v-toolbar-item class="hidden-md-and-up">
           <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      </v-toolbar-item>
+      </v-toolbar-item>   -->
+
     </v-app-bar>
 
 <!-- Navigation Drawer-->
@@ -41,8 +54,8 @@
       >
       <!-- List for Xtra small -->
         <v-list-item class="pa-4 red hidden-sm-and-up" >
-          <v-list-item-avatar class="ml-2">
-            <v-avatar color="grey" size="62">
+          <v-list-item-avatar class="mr-2">
+            <v-avatar color="grey" size="46">
                 <img
                   src="https://cdn.vuetifyjs.com/images/john.jpg"
                   alt="John"
@@ -51,7 +64,7 @@
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title class="title white--text">Customer Name</v-list-item-title>
+            <v-list-item-title class=" white--text ">{{currentUser ? currentUser.email : customerName}}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
@@ -107,8 +120,25 @@
 
           <v-list-item
             link
+            @click.stop="logout()"
+            v-show="currentUser!=null"
+            router-link
+            to="/home"
+          >
+            <v-list-item-icon>
+              <v-icon large>mdi-logout</v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title>Logout</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-list-item
+            link
             router-link
             to="/login"
+            v-show="currentUser==null"
           >
             <v-list-item-icon>
               <v-icon large>mdi-login</v-icon>
@@ -123,6 +153,7 @@
             link
             router-link
             to="/register"
+            v-show="currentUser==null"
           >
             <v-list-item-icon>
               <v-icon large>mdi-login</v-icon>
@@ -209,9 +240,11 @@
 
 <script>
 import LoginForm from './LoginSignupForm'
+import {db} from '../firebasedb'
 
 
 export default {
+  props:['currentUser'],
   components:{
     'login-form':LoginForm
   },
@@ -219,12 +252,18 @@ export default {
       return{
         drawer: null,
         dialog: false,
-        
+        customerName:'Customer name'
       }
   },
   methods:{
-      
+      logout(){
+        db.auth().signOut()
+
+      }
   },
+  created(){
+    
+  }
 
 }
 </script>

@@ -4,7 +4,7 @@
       <app-banner></app-banner>
       <app-top-products></app-top-products>
       <app-hot-products></app-hot-products>
-      <component :is="component"></component>
+      <app-daily-discover></app-daily-discover>
   </div>
 </template>
 
@@ -24,10 +24,7 @@ export default {
     },
     data(){
         return{
-            component:'app-daily-discover'
         }
-    },
-    created(){
     }
 }
 </script>
