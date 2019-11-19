@@ -2,6 +2,7 @@
 
 <template>
   <div>
+    <!-- Sample Text  -->
     <!-- Extra small Only -->
 
       <v-carousel
