@@ -6,16 +6,27 @@
       fixed
       app
     >
+      
       <v-img
         src="../assets/logo.png"
-        max-width="200"
-        max-height="100"
+        max-width="180"
+        max-height="80"
+        class=""
       ></v-img>
 
       <v-spacer></v-spacer>
 
-      <app-signup-form></app-signup-form>
-      <app-login-form></app-login-form>
+      <v-toolbar-item class="hidden-sm-and-down">
+          <v-btn text router-link to="/">Home</v-btn>
+          <v-btn text router-link to="/about">About</v-btn>
+          <v-btn text>Login</v-btn>
+          <v-btn text>Sign Up</v-btn>
+      </v-toolbar-item>
+      <v-toolbar-item class="hidden-md-and-up">
+          <v-btn text>MENU</v-btn>
+      </v-toolbar-item>
+     
+
       
     </v-app-bar>
 
@@ -23,23 +34,20 @@
 </template>
 
 <script>
-import SignUpForm from './SignUpForm.vue'
-import LoginForm from './LoginForm.vue'
 
 
 export default {
   components:{
-    'app-signup-form':SignUpForm,
-    'app-login-form':LoginForm,
   },
   data(){
       return{
-
+        
       }
   },
   methods:{
       
-  }
+  },
+
 }
 </script>
 
