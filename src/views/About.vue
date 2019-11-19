@@ -2,8 +2,6 @@
   <div>
 
     <div class="display-3">About</div>
-
-
   </div>
 </template>
 
