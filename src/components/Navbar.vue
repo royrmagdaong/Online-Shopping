@@ -7,6 +7,7 @@
       light
       fixed
       app
+      elevation="1"
     >
       
       <v-img
@@ -17,29 +18,40 @@
       ></v-img>
 
       <v-spacer></v-spacer>
-      <v-btn text router-link to="/" class="hidden-sm-and-down">Menu</v-btn>
+      <v-btn icon router-link to="/cart"><v-icon>mdi-cart</v-icon></v-btn>
+      <v-divider
+        class="mx-4"
+        vertical
+      ></v-divider>
+      
+      <v-btn text router-link to="/" class="hidden-sm-and-down">Home</v-btn>
       <v-btn text router-link to="/about" class="hidden-sm-and-down">About</v-btn>
-      <v-btn text @click.stop="logout()" v-show="currentUser!=null" class="hidden-sm-and-down" router-link to="/home">Logout</v-btn>
       <login-form title="Login" v-show="currentUser==null" class="hidden-sm-and-down"></login-form>
       <login-form title="Sign Up" v-show="currentUser==null" class="hidden-sm-and-down"></login-form>
-      <v-avatar color="grey" size="36" v-show="currentUser!=null" class="hidden-sm-and-down ml-1">
-        <img
-          class="grey"
-        >
-      </v-avatar>
+      
+        <v-menu offset-y>
+          <template v-slot:activator="{ on }">
+            <v-avatar color="grey" size="36" v-show="currentUser!=null" class="hidden-sm-and-down" v-on="on">
+              <img
+                  class="grey"
+                >
+              </v-avatar>
+          </template>
+          <v-list>
+            <v-list-item router-link to="/profile">
+              <v-list-item-title>Profile</v-list-item-title>
+            </v-list-item>
+            <v-list-item router-link to="/cart">
+              <v-list-item-title>Cart</v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="logout()" router-link to="/">
+              <v-list-item-title>Logout</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+        
 
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="hidden-md-and-up"></v-app-bar-nav-icon>
-
-      <!-- <v-toolbar-item class="hidden-sm-and-down">
-          <v-btn text router-link to="/">Home</v-btn>
-          <v-btn text router-link to="/about">About</v-btn>
-          <v-btn text >Login</v-btn>
-          <v-btn text class="ma-0 pa-0"><login-form title="Login"></login-form></v-btn> -->
-          <!-- <v-btn text class="ma-0 pa-0"><login-form title="Sign Up"></login-form></v-btn>
-      </v-toolbar-item>
-      <v-toolbar-item class="hidden-md-and-up">
-          <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      </v-toolbar-item>   -->
 
     </v-app-bar>
 
@@ -252,13 +264,21 @@ export default {
       return{
         drawer: null,
         dialog: false,
-        customerName:'Customer name'
+        customerName:'Customer name',
+        product:{
+          name:'bagnet',
+          price:100,
+          stock:10
+        }
       }
   },
   methods:{
       logout(){
         db.auth().signOut()
 
+      },
+      sendData(){
+        this.$emit('passData',this.product);
       }
   },
   created(){

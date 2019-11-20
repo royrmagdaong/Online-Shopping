@@ -17,3 +17,4 @@ export const db = firebase
    })
 
    export const dbStorage = db.storage();
+   export const dbFirestore = db.firestore();

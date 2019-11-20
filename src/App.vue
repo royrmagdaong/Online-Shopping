@@ -1,11 +1,11 @@
 <template>
   <v-app light>
     
-    <app-navbar :currentUser="currentUser"></app-navbar>
+    <app-navbar :currentUser="currentUser" ></app-navbar>
     <v-content>
       <router-view></router-view>
     </v-content>
-    <app-footer></app-footer>
+    <app-footer ></app-footer>
   </v-app>
 </template>
 
@@ -28,18 +28,20 @@ export default {
 
   }),
   methods:{
+    
   },
   created(){
     db.auth().onAuthStateChanged(()=>{
       if(db.auth().currentUser == null){
-        window.console.log("null");
         this.currentUser = db.auth().currentUser;
       }else{
-        window.console.log(db.auth().currentUser.email);
         this.currentUser = db.auth().currentUser;
       }
     });
-  }
+
+  },
+
+
 };
 </script>
 

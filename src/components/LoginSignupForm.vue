@@ -59,8 +59,19 @@
                   <v-col cols="6" sm="6" > 
                     <p class="caption blue--text text-right" >Forgot Password</p>
                   </v-col>
+
+                  <v-col cols="12" class="text-center">
+                    <span>or Login as...</span>
+                  </v-col>
+                  <v-col cols="12" class="text-center">
+                    <v-avatar size="42"  >
+                      <img
+                       @click="googleSignIn()"
+                        src="../assets/google_icon.png"
+                      >
+                    </v-avatar>
+                  </v-col>
                 </v-row>
-                {{errorMessage}}
               </v-container>
             </v-card-text>
             <v-card-actions>
@@ -80,13 +91,13 @@
                 <v-row>
                   
                   <v-col cols="12">
-                    <v-text-field label="Email*" required></v-text-field>
+                    <v-text-field label="Email*" required v-model="rEmail"></v-text-field>
                   </v-col>
                   <v-col cols="12">
-                    <v-text-field label="Password*" type="password" required ></v-text-field>
+                    <v-text-field label="Password*" type="password" required v-model="rPassword"></v-text-field>
                   </v-col>
                   <v-col cols="12">
-                    <v-text-field label="Repeat Password*" type="password" required ></v-text-field>
+                    <v-text-field label="Repeat Password*" type="password" required v-model="rRepeatPassword"></v-text-field>
                   </v-col>
                 </v-row>
               </v-container>
@@ -95,7 +106,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="red" text @click="dialog = false">Close</v-btn>
-              <v-btn color="red" text @click="dialog = false">Sign Up</v-btn>
+              <v-btn color="red" text @click="signUp">Sign Up</v-btn>
             </v-card-actions>
           </v-card>
         </v-tab-item>
@@ -109,7 +120,7 @@
 </template>
 
 <script>
-import { db } from '../firebasedb'
+import { db,dbFirestore } from '../firebasedb'
 
 
 export default {
@@ -119,9 +130,12 @@ export default {
         user: {},
         password:'',
         email:'',
+        plEmail:'',
+        rEmail:'',
+        rPassword:'',
+        rRepeatPassword:'',
         dialog: false,
         tab: null,
-        self: this,
         errorMessage:'',
         items: [
           'Login', 'Sign Up'
@@ -130,23 +144,72 @@ export default {
       }
   },
   created(){
-      addEventListener('fastSpringError', this.error)
-      
-      db.auth().onAuthStateChanged(()=>{
-        if(db.auth().currentUser != null){
-          window.console.log(db.auth().currentUser.email);
-          this.dialog = false;
-        }
-        
-      });
+
   },
   methods:{
       signIn(){
-        db.auth().signInWithEmailAndPassword(this.email,this.password).catch(function(error){
-          self.errorMessage = error.message;
-          window.console.log(self.errorMessage);
+        db.auth().signInWithEmailAndPassword(this.email,this.password).then(()=>{
+          if(db.auth().currentUser.emailVerified){
+            window.console.log('email is verified')
+            this.email = '';
+            this.password = '';
+            this.dialog  = false;
+          }else{
+            window.console.log('email is not verified')
+            db.auth().signOut();
+          }
+        }).catch((err)=>{
+            window.console.log(err.message)
         });
+      },
+      signUp(){
+        var mAuth = db.auth();
+        if(this.rPassword == this.rRepeatPassword){
+          mAuth.createUserWithEmailAndPassword(this.rEmail,this.rRepeatPassword).then(()=>{
+            
+            mAuth.currentUser.sendEmailVerification().then(()=>{
+              window.console.log('email verification sent');
+
+              // create user data to firestore
+              dbFirestore.collection('users').doc(mAuth.currentUser.uid).set({
+                email: mAuth.currentUser.email,
+                isMerchant: false
+              }).then(function(){
+                mAuth.signOut();
+                window.console.log('created');
+              }).catch(function(error){
+                window.console.log(error.message);
+                mAuth.signOut();
+              });
+
+              // clear form data
+              this.rPassword = '';
+              this.rRepeatPassword = '';
+              this.rEmail = '';
+
+              this.dialog = false;
+            }).catch((err)=>{
+              window.console.log(err.message);
+              mAuth.signOut();
+            });
+
+          }).catch((error)=>{
+            window.console.log(error.message)
+          });
+        }else{
+          window.console.log('Password do not match');
+        }
+        
+      },
+      googleSignIn(){
+        var provider = new db.auth().GoogleAuthProvider();
+        provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+
+        window.console.log(provider)
+      
+
       }
+    
   }
 }
 </script>

@@ -102,6 +102,8 @@
                 width="200"
                 height="200"    
                 :elevation="hover ? 8 : 1"
+                router-link
+                to="/view_product"
                 
                 >
                 <v-img
@@ -123,6 +125,7 @@
 
 <script>
 import {dbStorage} from '../firebasedb'
+
 export default {
   data(){
       return{
@@ -133,7 +136,6 @@ export default {
       }
   },
   methods:{
-      
   },
   mounted(){
       this.imagesUrl.forEach(elmnt => {
