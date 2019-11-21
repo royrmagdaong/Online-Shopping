@@ -15,7 +15,7 @@
         >
         
         <v-slide-item
-            v-for="image in images"
+            v-for="image in getTopProducts"
             :key="image"
         >
             <v-hover v-slot:default="{ hover }">
@@ -24,11 +24,13 @@
                 width="120"
                 height="120"    
                 :elevation="hover ? 8 : 1"
-                
+                router-link
+                to="/view-product"
                 >
                 <v-img
                     :src="image"
                     aspect-ratio="1"
+                    @click="viewProduct(image)"
                 ></v-img>
                     
                 </v-card>
@@ -53,7 +55,7 @@
         >
         
         <v-slide-item
-            v-for="image in images"
+            v-for="image in getTopProducts"
             :key="image"
         >
             <v-hover v-slot:default="{ hover }">
@@ -62,11 +64,13 @@
                 width="180"
                 height="180"    
                 :elevation="hover ? 8 : 1"
-                
+                router-link
+                to="/view-product"
                 >
                 <v-img
                     :src="image"
                     aspect-ratio="1"
+                    @click="viewProduct(image)"
                 ></v-img>
                     
                 </v-card>
@@ -90,7 +94,7 @@
         >
         
         <v-slide-item
-            v-for="image in images"
+            v-for="image in getTopProducts"
             :key="image"
         >
             <v-hover v-slot:default="{ hover }">
@@ -99,11 +103,14 @@
                 width="200"
                 height="200"    
                 :elevation="hover ? 8 : 1"
+                router-link
+                to="/view-product"
                 
                 >
                 <v-img
                     :src="image"
                     aspect-ratio="1"
+                   @click="viewProduct(image)"
                 ></v-img>
                     
                 </v-card>
@@ -120,27 +127,21 @@
 </template>
 
 <script>
-import {dbStorage} from '../firebasedb'
 export default {
   data(){
       return{
         model: null,
-        imagesUrl:['abel_weaving_sm.jpg','alaminos_longganisa_sm.jpg','bagnet_sm.jpg','biko_bulacan_sm.jpg','cashey_nuts_bataan_sm.png'
-            ,'hopya_ibanag_sm.jpg','ilocos_bagoong_sm.jpg'],
-        images:[],
       }
   },
   methods:{
-      
+    viewProduct(val){
+        this.$store.dispatch('setViewProduct',val);
+    }
   },
-  mounted(){
-      this.imagesUrl.forEach(elmnt => {
-        dbStorage.ref('images/'+elmnt).getDownloadURL().then((url)=>{
-            this.images.push(url)
-        }).catch((error) => {
-            window.console.log(error.message)
-        })
-      });
+  computed:{
+      getTopProducts(){
+        return this.$store.getters.getTopProducts;
+      }
   }
 }
 </script>

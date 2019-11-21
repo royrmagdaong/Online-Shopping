@@ -24,7 +24,7 @@
         vertical
       ></v-divider>
       
-      <v-btn text router-link to="/" class="hidden-sm-and-down">Home</v-btn>
+      <v-btn text router-link to="/home" class="hidden-sm-and-down">Home</v-btn>
       <v-btn text router-link to="/about" class="hidden-sm-and-down">About</v-btn>
       <login-form title="Login" v-show="currentUser==null" class="hidden-sm-and-down"></login-form>
       <login-form title="Sign Up" v-show="currentUser==null" class="hidden-sm-and-down"></login-form>

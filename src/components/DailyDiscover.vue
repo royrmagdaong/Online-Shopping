@@ -11,21 +11,24 @@
                     <h3 class="grey--text lighten-2">DAILY DISCOVER </h3>
                     <v-row class="pa-0">
                         <v-col
-                            v-for="image in images"
+                            v-for="image in getDailyDiscover"
                             :key="image"
                             class="d-flex child-flex"
                             cols="6"
-                        
+
                             >
                             <v-hover v-slot:default="{ hover }">
                             <v-card  tile :elevation="hover ? 12 : 1">
                                 <v-card flat tile class="d-flex"
+                                    router-link to="/view-product"
+                            
                                 >
                                     <v-img
                                         :src="image"
                                         :lazy-src="image"
                                         aspect-ratio="1"
                                         class="grey lighten-2"
+                                        @click="viewProduct(image)"
                                         >
                                         
                                     <template v-slot:placeholder>
@@ -68,7 +71,7 @@
                     <h3 class="grey--text lighten-2">DAILY DISCOVER </h3>
                     <v-row class="pa-4">
                         <v-col
-                            v-for="image in images"
+                            v-for="image in getDailyDiscover"
                             :key="image"
                             class="d-flex child-flex"
                             cols="4"
@@ -77,12 +80,14 @@
                             <v-hover v-slot:default="{ hover }">
                             <v-card  tile :elevation="hover ? 12 : 1">
                                 <v-card flat tile class="d-flex"
+                                router-link to="/view-product"
                                 >
                                     <v-img
                                         :src="image"
                                         :lazy-src="image"
                                         aspect-ratio="1"
                                         class="grey lighten-2"
+                                        @click="viewProduct(image)"
                                         >
                                         
                                     <template v-slot:placeholder>
@@ -126,7 +131,7 @@
                     <h3 class="grey--text lighten-2">DAILY DISCOVER </h3>
                     <v-row class="pa-4">
                         <v-col
-                            v-for="image in images"
+                            v-for="image in getDailyDiscover"
                             :key="image"
                             class="d-flex child-flex"
                             cols="3"
@@ -135,12 +140,14 @@
                             <v-hover v-slot:default="{ hover }">
                             <v-card  tile :elevation="hover ? 12 : 1">
                                 <v-card flat tile class="d-flex"
+                                router-link to="/view-product"
                                 >
                                     <v-img
                                         :src="image"
                                         :lazy-src="image"
                                         aspect-ratio="1"
                                         class="grey lighten-2"
+                                        @click="viewProduct(image)"
                                         >
                                         
                                     <template v-slot:placeholder>
@@ -180,27 +187,28 @@
         <v-row
         v-if="$vuetify.breakpoint.lgAndUp"
         >
-            <v-col cols="12" sm="12" offset-sm="">
+            <v-col cols="12" offset-sm="">
                 <v-card flat class="">
                     <v-container fluid >
                     <h3 class="grey--text lighten-2">DAILY DISCOVER </h3>
                     <v-row class="pa-4">
                         <v-col
-                            v-for="image in images"
+                            v-for="image in getDailyDiscover"
                             :key="image"
                             class="d-flex child-flex"
                             cols="2"
-                        
                             >
                             <v-hover v-slot:default="{ hover }">
                             <v-card  tile :elevation="hover ? 12 : 1">
                                 <v-card flat tile class="d-flex"
+                                router-link to="/view-product"
                                 >
                                     <v-img
                                         :src="image"
                                         :lazy-src="image"
                                         aspect-ratio="1"
                                         class="grey lighten-2"
+                                        @click="viewProduct(image)"
                                         >
                                         
                                     <template v-slot:placeholder>
@@ -244,30 +252,21 @@
 </template>
 
 <script>
-import {dbStorage} from '../firebasedb'
 export default {
   data(){
       return{
-        model: null,
-        imagesUrl:['abel_weaving_sm.jpg','alaminos_longganisa_sm.jpg','bagnet_sm.jpg','biko_bulacan_sm.jpg','cashey_nuts_bataan_sm.png'
-            ,'hopya_ibanag_sm.jpg','ilocos_bagoong_sm.jpg','inatata_isabela_sm.jpg','isabela_binalay_sm.jpg','manga_zambales_2_sm.jpg',
-                'manga_zambales_sm.jpg','moriecos_isabela_sm.jpg'],
-        images:[],
+        model: null
       }
   },
   methods:{
-      
+    viewProduct(val){
+        this.$store.dispatch('setViewProduct',val);
+    }
   },
-  created(){
-      window.console.log("moounted!")
-
-      this.imagesUrl.forEach(elmnt => {
-        dbStorage.ref('images/'+elmnt).getDownloadURL().then((url)=>{
-            this.images.push(url)
-        }).catch((error) => {
-            window.console.log(error.message)
-        })
-      });
+  computed:{
+      getDailyDiscover(){
+        return this.$store.getters.getDailyDiscover;
+      }
   }
 }
 </script>
