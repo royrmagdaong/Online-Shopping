@@ -7,6 +7,7 @@ import About from './views/About'
 import ViewProduct from './views/ViewProduct'
 import Cart from './views/Cart'
 import Profile from './views/Profile'
+import SellerSignUp from './views/SellerSignUp'
 
 Vue.use(Router)
 
@@ -36,6 +37,11 @@ const router =  new Router({
       path: '/view-product',
       name: 'view-product',
       component: ViewProduct
+    },
+    {
+      path: '/seller-signup',
+      name: 'seller-signup',
+      component: SellerSignUp
     },
     {
       path: '/cart',

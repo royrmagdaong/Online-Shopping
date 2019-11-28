@@ -1,8 +1,8 @@
 <template>
 <div>
-      <v-dialog v-model="dialog" persistent max-width="600px">
+      <v-dialog v-model="dialog" max-width="600px">
       <template v-slot:activator="{ on }">
-        <v-btn text v-on="on">{{title}}</v-btn>
+        <v-btn text v-on="on" class="caption" color="red">{{title}}</v-btn>
       </template>
 
     <v-card>
