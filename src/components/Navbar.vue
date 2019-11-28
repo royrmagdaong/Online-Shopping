@@ -18,14 +18,40 @@
       ></v-img>
 
       <v-spacer></v-spacer>
-      <v-btn icon router-link to="/cart"><v-icon>mdi-cart</v-icon></v-btn>
+      <v-btn icon router-link to="/cart" color="red"><i class="material-icons md-18">shopping_cart</i></v-btn>
       <v-divider
         class="mx-4"
         vertical
       ></v-divider>
       
-      <v-btn text router-link to="/home" class="hidden-sm-and-down">Home</v-btn>
-      <v-btn text router-link to="/about" class="hidden-sm-and-down">About</v-btn>
+      <v-btn text router-link to="/home" color="red" class="hidden-sm-and-down caption">Home</v-btn>
+      <v-btn text router-link to="/about" color="red" class="hidden-sm-and-down caption">About</v-btn>
+
+      <v-menu open-on-hover offset-y>
+        <template v-slot:activator="{ on }">
+          <v-btn
+            v-on="on"
+            class="caption hidden-sm-and-down"
+            text
+            color="red"
+          >
+            Sell Center
+            <i class="material-icons md-18">arrow_drop_down</i>
+          </v-btn>
+        </template>
+
+        <v-list>
+          <v-list-item
+            v-for="(item, index) in sellCenterItems"
+            :key="index"
+            router-link
+            :to="item.route"
+          >
+            <v-list-item-title class="red--text caption" >{{ item.title }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+
       <login-form title="Login" v-show="currentUser==null" class="hidden-sm-and-down"></login-form>
       <login-form title="Sign Up" v-show="currentUser==null" class="hidden-sm-and-down"></login-form>
       
@@ -76,7 +102,7 @@
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title class=" white--text ">{{currentUser ? currentUser.email : customerName}}</v-list-item-title>
+            <v-list-item-title>{{currentUser ? currentUser.email : customerName}}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
@@ -269,7 +295,11 @@ export default {
           name:'bagnet',
           price:100,
           stock:10
-        }
+        },
+        sellCenterItems: [
+        { title: 'Sign Up as Seller', route:'/seller-signup'},
+        { title: 'Learn more', route:'/' }
+      ],
       }
   },
   methods:{
