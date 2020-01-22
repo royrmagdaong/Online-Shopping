@@ -1,24 +1,12 @@
 # online-shopping
 
-## Project setup
-```
-npm install
-```
+#### this project is not finished, and doesn't received updates for now.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### Project Description
+  - Simple Online Shopping Website
+  - you can search for products, add to cart and so on...
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Technology Used
+ - Vuejs, Vue Router, Vuex
+ - Firebase Authentication, Hosting, Firestore, Storage
+ 
